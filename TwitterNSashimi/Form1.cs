@@ -21,6 +21,8 @@ namespace TwitterNSashimi
         public Form1()
         {
             InitializeComponent();
+
+            this.Width = Height = 0;
             timer1.Interval = 5000;
             timer1.Start();
 
@@ -28,6 +30,16 @@ namespace TwitterNSashimi
             webBrowser1.Parent = this;
             webBrowser1.Dock = DockStyle.Fill;
             this.webBrowser1.Navigate("twitter.com/");
+
+            this.Load += Form1_Load;
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            BeginInvoke(new MethodInvoker(delegate
+            {
+                Hide();
+            }));
         }
 
         private void Check()
@@ -56,6 +68,11 @@ namespace TwitterNSashimi
         {
             notifyIcon1.BalloonTipText = $"새로운 {count}개의 알림이 왔습니다!";
             notifyIcon1.ShowBalloonTip(3000);
+        }
+
+        private void 종료QToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
 
         private void timer1_Tick(object sender, EventArgs e)
